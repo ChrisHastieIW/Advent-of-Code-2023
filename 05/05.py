@@ -154,13 +154,11 @@ def map_seed_ranges(df_seed_ranges: pd.DataFrame, df_maps: pd.DataFrame):
 
     ### Determine components - Matched Spillover 1 (before overlap)
     df_matched_record_spillover_1 = df_matched_records_all[df_matched_records_all["range_before_overlap"] > 0].copy()
-    df_matched_record_spillover_1["mapping_exists"] = False
-    df_matched_record_spillover_1["current_range_length"] = df_matched_record_spillover_1["range_before_overlap"]
+    df_matched_record_spillover_1["current_range_length"] = df_matched_record_spillover_1["range_before_overlap"] - 1
     df_matched_record_spillover_1 = df_matched_record_spillover_1[["current_range_start", "current_range_length", "current_category"]]
 
     ### Determine components - Matched Spillover 2 (after overlap)
     df_matched_record_spillover_2 = df_matched_records_all[df_matched_records_all["range_after_overlap"] > 0].copy()
-    df_matched_record_spillover_2["mapping_exists"] = False
     df_matched_record_spillover_2["current_range_start"] = df_matched_record_spillover_2["overlap_range_start"] + df_matched_record_spillover_2["overlap_range_length"]
     df_matched_record_spillover_2["current_range_length"] = df_matched_record_spillover_2["range_after_overlap"]
     df_matched_record_spillover_2 = df_matched_record_spillover_2[["current_range_start", "current_range_length", "current_category"]]
